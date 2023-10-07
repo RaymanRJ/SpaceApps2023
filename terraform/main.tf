@@ -28,7 +28,6 @@ locals{
     logging_bucket = "${var.stack_name}-logging-bucket"
 }
 
-
 module "s3" {
   source = "./s3"
   stack_name = var.stack_name
