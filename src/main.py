@@ -17,9 +17,9 @@ def process_photo(file_path: str) -> np.ndarray:
 
 def main():
     files = list_files(photo_path)
-    print(files)
     for file in files:
         photo = process_photo(os.path.join(photo_path, file))
+        print(photo)
 
 
 if __name__ == "__main__":
