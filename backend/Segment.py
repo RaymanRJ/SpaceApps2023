@@ -46,5 +46,4 @@ def segment_data(photo) -> np.ndarray:
 
 def save_to_numpy(array):
     np.save("Video_colors", array, allow_pickle=True)
-    test = np.load("Video_colors.npy")
-    return
+    np.load("Video_colors.npy")
