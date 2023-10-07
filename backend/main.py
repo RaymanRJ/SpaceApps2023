@@ -26,6 +26,9 @@ def main():
 
             sequence.append(segment_data(photo))
 
+    # Save output
+    np.save("Video_colors", full_array, allow_pickle=True)
+    test = np.load("Video_colors.npy")
     # save_to_numpy(full_array)
 
     for frame in range(len(sequence[:10])):

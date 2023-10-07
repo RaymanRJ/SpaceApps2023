@@ -6,7 +6,13 @@ from mido import MidiFile, MidiTrack, Message
 
 # Create a 5x5 RGB image (uint8 datatype by default)
 # pretend_picture = np.random.randint(0, 256, (5, 5, 3), dtype=np.uint8)
-pretend_picture = np.full((5, 5, 3), [128, 64, 32], dtype=np.uint8)
+# pretend_picture = np.full((5, 5, 3), [128, 64, 32], dtype=np.uint8)
+NUM_TRACKS = 10
+picture_tests = [
+    np.random.randint(0, 256, (5, 5, 3), dtype=np.uint8) for _ in range(NUM_TRACKS)
+]
+
+
 midi_path = "midi.mid"
 
 
@@ -90,3 +96,9 @@ def midi_generator(picture: np.ndarray, file_path: str) -> str:
 
     mid.save(file_path)
     return file_path
+
+
+if __name__ == "__main__":
+    for i, pretend_picture in enumerate(picture_tests):
+        path = f"midi_{i}.mid"
+        midi_generator(pretend_picture, path)
