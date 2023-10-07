@@ -6,3 +6,4 @@ pytz==2023.3.post1
 six==1.16.0
 tzdata==2023.3
 pydub==0.25.1
+moviepy==1.0.3
