@@ -5,9 +5,9 @@ from mido import MidiFile, MidiTrack, Message
 
 
 # Create a 5x5 RGB image (uint8 datatype by default)
-pretend_picture = np.random.randint(0, 256, (5, 5, 3), dtype=np.uint8)
+# pretend_picture = np.random.randint(0, 256, (5, 5, 3), dtype=np.uint8)
+pretend_picture = np.full((5, 5, 3), [128, 64, 32], dtype=np.uint8)
 midi_path = "midi.mid"
-
 
 
 def rms_algorithm(picture: np.ndarray) -> Tuple[int, int, int]:
@@ -57,26 +57,34 @@ def average_algorithm(picture: np.ndarray) -> Tuple[int, int, int]:
 
 def handler(picture: np.ndarray, file_path: str) -> str:
     # Create a new MIDI file with one track
-    mid = MidiFile()
-    track = MidiTrack()
-    mid.tracks.append(track)
+    mid = MidiFile(type=1)
+
+    r_track = MidiTrack()
+    g_track = MidiTrack()
+    b_track = MidiTrack()
+
+    r_track.name = "Red"
+    g_track.name = "Green"
+    b_track.name = "Blue"
+    
+    mid.tracks = [r_track, g_track, b_track]
 
     r_note, g_note, b_note = average_algorithm(picture)
 
     print(r_note, g_note, b_note)
 
-    r_note, g_note, b_note = rms_algorithm(picture)
+    # r_note, g_note, b_note = rms_algorithm(picture)
     print(r_note, g_note, b_note)
 
     # Add note-on messages
-    track.append(Message('note_on', note=r_note, velocity=64, time=0))
-    track.append(Message('note_on', note=g_note, velocity=64, time=0))
-    track.append(Message('note_on', note=b_note, velocity=64, time=0))
+    r_track.append(Message('note_on', note=r_note, velocity=64, time=0))
+    g_track.append(Message('note_on', note=g_note, velocity=64, time=0))
+    b_track.append(Message('note_on', note=b_note, velocity=64, time=0))
 
     # Add note-off messages immediately (time=0)
-    track.append(Message('note_off', note=r_note, velocity=64, time=500))
-    track.append(Message('note_off', note=g_note, velocity=64, time=500))
-    track.append(Message('note_off', note=b_note, velocity=64, time=500))
+    r_track.append(Message('note_off', note=r_note, velocity=64, time=500))
+    g_track.append(Message('note_off', note=g_note, velocity=64, time=500))
+    b_track.append(Message('note_off', note=b_note, velocity=64, time=500))
 
     # Add a delay message to separate this set of notes from the next
     # track.append(Message('control_change', control=0, value=0, time=500))
