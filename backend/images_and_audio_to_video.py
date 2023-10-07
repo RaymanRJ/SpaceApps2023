@@ -2,7 +2,7 @@
 Convert a set of image files and an audio file into a video file.
 
 Usage:
-    python script.py input_image_folder input_audio_file output_video_name [--image_format image_format] [--fps fps] [--audio_format audio_format]
+    python images_and_audio_to_video.py input_image_folder input_audio_file output_video_name [--image_format image_format] [--fps fps] [--audio_format audio_format]
 
 Arguments:
     input_image_folder (str): Path to the folder containing the image files.
@@ -15,7 +15,7 @@ Optional Arguments:
     --audio_format (str): File format of the input audio. Default is mp3.
 
 Example:
-    python script.py assets input_audio.mp3 output_video.mp4 --fps 30
+    python images_and_audio_to_video.py assets input_audio.mp3 output_video.mp4 --fps 30
 """
 
 
