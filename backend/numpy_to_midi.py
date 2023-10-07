@@ -55,7 +55,7 @@ def average_algorithm(picture: np.ndarray) -> Tuple[int, int, int]:
     return r_note, g_note, b_note
 
 
-def handler(picture: np.ndarray, file_path: str) -> str:
+def midi_generator(picture: np.ndarray, file_path: str) -> str:
     # Create a new MIDI file with one track
     mid = MidiFile(type=1)
 
@@ -71,10 +71,9 @@ def handler(picture: np.ndarray, file_path: str) -> str:
 
     r_note, g_note, b_note = average_algorithm(picture)
 
-    print(r_note, g_note, b_note)
+    # print(r_note, g_note, b_note)
 
     # r_note, g_note, b_note = rms_algorithm(picture)
-    print(r_note, g_note, b_note)
 
     # Add note-on messages
     r_track.append(Message('note_on', note=r_note, velocity=64, time=0))
@@ -91,7 +90,3 @@ def handler(picture: np.ndarray, file_path: str) -> str:
 
     mid.save(file_path)
     return file_path
-
-
-if __name__ == "__main__":
-    handler(pretend_picture, midi_path)
