@@ -20,3 +20,8 @@ variable "default_tags" {
   description = "Default tags for AWS resources"
   type        = map(string)
 }
+
+variable "cicd_actions_group_name" {
+  description = "GitHub Actions Group Name for CICD"
+  type = string
+}

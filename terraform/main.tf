@@ -59,7 +59,13 @@ module "route53" {
   domain_name = local.domain_name
   validation_options = module.acm.validation_options
   cloudfront_distribution_domain_name = module.cloudfront.cloudfront_distribution_domain_name
-  aws_lb_spacesapps2023_lambda_alb_dns_name = module.alb.aws_lb_spacesapps2023_lambda_alb_dns_name
-  aws_lb_spacesapps2023_lambda_alb_zone_id = module.alb.aws_lb_spacesapps2023_lambda_alb_zone_id
+}
 
+module "iam" {
+  source = "./iam"
+  stack_name = var.stack_name
+  s3_arn = module.s3.s3_arn
+  s3_asset_arn = module.s3.s3_asset_arn
+  cloudfront_arn = module.cloudfront.cloudfront_distribution_arn
+  cicd_actions_group_name = var.cicd_actions_group_name
 }
