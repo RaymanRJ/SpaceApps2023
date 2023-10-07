@@ -69,7 +69,6 @@ def main():
     # Save output
     np.save("Video_colors", full_array, allow_pickle=True)
     test = np.load("Video_colors.npy")
-    print(len(test))
 
 
 if __name__ == "__main__":
