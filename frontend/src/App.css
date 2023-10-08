@@ -1,38 +1,66 @@
-.App {
-  text-align: center;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@layer base {
+  body {
+    @apply bg-white text-black;
+  }
+  h1 {
+    @apply lg:text-6xl md:text-5xl text-4xl font-bold
+  }
+  h2 {
+    @apply lg:text-5xl md:text-4xl text-3xl font-bold
+  }
+  h3 {
+    @apply lg:text-3xl md:text-2xl text-xl font-bold
+  }
+  h4 {
+    @apply md:text-xl text-lg font-bold
+  }
+  p {
+    @apply md:text-xl text-lg
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@layer components {
+  .main-padding {
+    @apply xl:px-40 md:px-28 sm:px-10 px-5 z-10 relative bg-transparent
   }
-  to {
-    transform: rotate(360deg);
+  .nav-link {
+    @apply text-white hover:text-proj_L_blue duration-300
+  }
+  .background {
+    @apply absolute top-0 right-0 bottom-0 left-0 object-cover h-[2000px] -z-50 opacity-0 duration-[3s] delay-[3s];
+  }
+  .background.active {
+    @apply opacity-100 delay-0
+  }
+  .member {
+    @apply duration-300
+  }
+  .member.active h4 {
+    @apply text-proj_L_blue
+  }
+  .member.darkened {
+    @apply brightness-[30%] hover:brightness-100
+  }
+  .info {
+    @apply border border-proj_blue rounded-xl px-14 py-0 flex flex-col gap-12 text-center absolute w-full left-0 opacity-0 pointer-events-none duration-500 delay-0 h-auto max-h-0 overflow-hidden
+  }
+  .info.active {
+    @apply opacity-100 pointer-events-auto delay-500 max-h-[450px] py-20
+  }
+  .generic {
+    @apply border border-proj_blue rounded-xl px-14 py-20 flex flex-col gap-12 text-center absolute w-full left-0 duration-500 delay-500 h-[450px] opacity-100
+  }
+  .generic.inactive {
+    @apply opacity-0 pointer-events-none
+  }
+  .video-play {
+    @apply h-0 duration-300 overflow-hidden my-0
+  }
+  .video-play.active {
+    @apply h-80 my-16
   }
 }
