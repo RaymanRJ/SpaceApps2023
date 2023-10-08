@@ -14,6 +14,6 @@ In this project, we are focused on sonifying 3D "fly-through" videos generated f
 
 ## Submission
 
-Check here for our submission!
+Our system is capable of taking a timelapsed photoset and produce a fly-through video with sonified audio that represents the original photoset. To see the live videos, check out the link below:
 
 https://spaceapps2023.rrjamal.ca/
