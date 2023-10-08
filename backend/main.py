@@ -1,15 +1,16 @@
-import os
-from typing import List
+from glob import glob
+
 import cv2
+import numpy as np
 
-from Segment import *
-from numpy_to_midi import *
+from images_and_audio_to_video import images_and_audio_to_video
+from midi_to_audio import midi_to_mp3, stitch_midis
+from numpy_to_midi import sequence_to_midis
+from Segment import segment_files
 
-photo_path = "./assets"
-
-
-def list_files(dir: str) -> List[str]:
-    return os.listdir(dir)
+photo_path = "assets"
+# photo_path = "./temp"
+# photo_path = "assets_cosmic2_dome"
 
 
 def process_photo(file_path: str) -> np.ndarray:
@@ -17,19 +18,30 @@ def process_photo(file_path: str) -> np.ndarray:
 
 
 def main():
-    sequence = []
-    files = list_files(photo_path)
-    for file in files[:10]:
-        if file.endswith(".png"):
-            photo = process_photo(os.path.join(photo_path, file))
+    files = sorted(glob(f"{photo_path}/*.png"))
+    print(files)
 
-            sequence.append(segment_data(photo))
+    sequence = segment_files(files)
+    print(f"Sequence length: {len(sequence)}")
 
-    # save_to_numpy(full_array)
+    midi_files = sequence_to_midis(sequence)
+    print(f"MIDI files length: {len(midi_files)}")
 
-    for frame in range(len(sequence[:10])):
-        data = sequence[frame].reshape(5, 5, 3)
-        midi_generator(data, f"./midi/frame-{frame + 1}_midi.mid")
+    midis = stitch_midis(midi_files, "outputs/stitch_midis.mid")
+    print(f"Stitched MIDI length: {len(midis)}")
+
+    audio = midi_to_mp3(midis, "outputs/midis_to_wav.wav", "outputs/wav_to_mp3.mp3")
+    print(f"Final MP3: {audio}")
+
+    video = images_and_audio_to_video(
+        photo_path,
+        "outputs/output_video.mp4",
+        audio,
+        "png",
+        30,
+        "mp3",
+    )
+    print(f"Final video: {video}")
 
 
 if __name__ == "__main__":

@@ -1,9 +1,10 @@
 import subprocess
-from pydub import AudioSegment
 from typing import List
-from mido import MidiFile, MidiTrack, Message
 
-from backend.numpy_to_midi import NUM_TRACKS
+from mido import MidiFile, MidiTrack
+from pydub import AudioSegment
+
+from numpy_to_midi import NUM_TRACKS
 
 
 def stitch_midis(midi_files: List[str], midi_file_path: str) -> str:
@@ -34,16 +35,21 @@ def stitch_midis(midi_files: List[str], midi_file_path: str) -> str:
     return midi_file_path
 
 
-def midi_to_mp3(midi_file: str, mp3_file: str) -> str:
-
+def midi_to_mp3(midi_file: str, wav_file: str, mp3_file: str) -> str:
     soundfont = "PC-98_Soundfont.sf2"
     # Step 1: Convert MIDI to WAV using FluidSynth
     # Replace 'soundfont.sf2' with the path to your specific SoundFont file
-    subprocess.run(['fluidsynth', '-ni', soundfont, midi_file, '-F', 'output.wav', '-r', '44100'])
+    subprocess.run(
+        ["fluidsynth", "-ni", soundfont, midi_file, "-F", wav_file, "-r", "44100"]
+    )
 
     # Step 2: Convert WAV to MP3 using pydub
-    audio = AudioSegment.from_wav("output.wav")
-    audio.export(mp3_file, format="mp3")
+    sound = AudioSegment.from_wav(wav_file)
+
+    normalized_sound = sound.normalize(headroom=0.1)
+    normalized_sound.export("outputs/midis_to_wav_normalized.wav", format="wav")
+
+    normalized_sound.export(mp3_file, format="mp3")
 
     return mp3_file
 
@@ -55,7 +61,3 @@ if __name__ == "__main__":
 
     midi = stitch_midis(midi_files, "stitch_test.mid")
     mp3 = midi_to_mp3(midi, "stitch_test.mp3")
-
-
-
-
