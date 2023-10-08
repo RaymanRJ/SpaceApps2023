@@ -77,7 +77,7 @@ def midi_generator(picture: List[np.ndarray], file_name: str, file_path: str) ->
     for i, row in enumerate(picture):
         for j, pixel in enumerate(row):
 
-            track_name = f"{file_name}_{i}_{j}"
+            track_name = f"{file_name}_{i}_{j}"     # Track name: colour_photo_row_column (color_photo_pixel)
 
             r_track = MidiTrack()
             g_track = MidiTrack()
@@ -115,6 +115,7 @@ def sequence_to_midis(averaged_photos: List[np.ndarray]) -> List[str]:
         midi_files.append(midi_generator(averaged_photo, midi_file, midi_file_path))
 
     return midi_files
+
 
 if __name__ == "__main__":
     for i, pretend_picture in enumerate(picture_tests):

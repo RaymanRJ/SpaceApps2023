@@ -78,7 +78,7 @@ def save_to_numpy(array):
 def average_files(files: List[str]) -> List[np.ndarray]:
     averaged_photos = []
     for i, file in enumerate(files):
-        print(f"Processing {file}: {i} of {len(files)}")
+        print(f"Processing {file}: {i + 1} of {len(files)}")
         photo = imread(file)
 
         averaged_photo = averaged_pixels(photo)

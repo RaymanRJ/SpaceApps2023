@@ -2,3 +2,5 @@
 *.wav
 *.mp3
 *.sf2
+*.mp4
+.DS_STORE

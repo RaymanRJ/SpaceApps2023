@@ -1,5 +1,6 @@
 from glob import glob
 
+from backend.mp3_cleaner import clean_mp3
 from images_and_audio_to_video import images_and_audio_to_video
 from midi_to_audio import midi_to_mp3, stitch_midis
 from numpy_to_midi import sequence_to_midis
@@ -22,12 +23,17 @@ def main():
     print(f"Stitched MIDI length: {len(midis)}")
 
     audio = midi_to_mp3(midis, "outputs/midis_to_wav.wav", "outputs/wav_to_mp3.mp3")
-    print(f"Final MP3: {audio}")
+    print(f"MP3: {audio}")
+
+    cleaned_audio = clean_mp3(audio, "outputs/cleaned_audio.mp3")
+    print(f"Cleaned audio: {cleaned_audio}")
+
+    cleaned_audio = audio
 
     video = images_and_audio_to_video(
         photo_path,
         "outputs/output_video.mp4",
-        audio,
+        cleaned_audio,
         "png",
         30,
         "mp3",
