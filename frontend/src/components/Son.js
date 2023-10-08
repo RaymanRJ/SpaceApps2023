@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Player } from "video-react";
+import { Player, ControlBar } from "video-react";
 
 const vids = [
   {
@@ -30,11 +30,18 @@ const Son = () => {
     <div className="main-padding py-28">
       <div className="mx-16 bg-white/50 backdrop-blur-md rounded-xl md:px-32 sm:px-14 px-5">
         <h1 className="pt-28 text-center px-10">
-          Immerse yourself in the sounds of space!
+          Immerse Yourself in the Sounds of Space!
         </h1>
         <div className="py-20">
-          <div className="video-play">
-            {plyr > -1 ? (
+          <div>
+            <iframe
+              width="100%"
+              height="100%"
+              src={vids[plyr].url}
+              title="Embedded Video"
+              allowFullScreen
+            ></iframe>
+            {/* {plyr > -1 ? (
               <Player
                 playsInline
                 poster={vids[plyr].thumbnail}
@@ -42,7 +49,7 @@ const Son = () => {
               />
             ) : (
               <div></div>
-            )}
+            )} */}
           </div>
           <div className="border border-proj_blue rounded-xl p-12 flex gap-12 text-center w-full flex-wrap">
             {vids.map((vid, i) => (
