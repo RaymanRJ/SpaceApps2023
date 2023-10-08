@@ -87,9 +87,9 @@ def midi_generator(picture: np.ndarray, file_path: str) -> str:
     b_track.append(Message('note_on', note=b_note, velocity=64, time=0))
 
     # Add note-off messages immediately (time=0)
-    r_track.append(Message('note_off', note=r_note, velocity=64, time=500))
-    g_track.append(Message('note_off', note=g_note, velocity=64, time=500))
-    b_track.append(Message('note_off', note=b_note, velocity=64, time=500))
+    r_track.append(Message('note_off', note=r_note, velocity=64, time=int(1000/30)))
+    g_track.append(Message('note_off', note=g_note, velocity=64, time=int(1000/30)))
+    b_track.append(Message('note_off', note=b_note, velocity=64, time=int(1000/30)))
 
     # Add a delay message to separate this set of notes from the next
     # track.append(Message('control_change', control=0, value=0, time=500))
