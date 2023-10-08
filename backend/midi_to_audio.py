@@ -3,7 +3,7 @@ from pydub import AudioSegment
 from typing import List
 from mido import MidiFile, MidiTrack, Message
 
-from backend.numpy_to_midi import NUM_TRACKS
+from numpy_to_midi import NUM_TRACKS
 
 
 def stitch_midis(midi_files: List[str], midi_file_path: str) -> str:
