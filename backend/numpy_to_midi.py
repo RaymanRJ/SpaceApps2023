@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import List, Tuple
 
 import numpy as np
 from mido import Message, MidiFile, MidiTrack
@@ -95,6 +95,16 @@ def midi_generator(picture: np.ndarray, file_path: str) -> str:
 
     mid.save(file_path)
     return file_path
+
+
+def sequence_to_midis(sequence: List[np.ndarray]) -> List[str]:
+    midi_files = []
+    for frame in range(len(sequence)):
+        data = sequence[frame].reshape(5, 5, 3)
+        midi_file_path = f"midi/midi_{frame + 1}.mid"
+        midi_generator(data, midi_file_path)
+        midi_files.append(midi_file_path)
+    return midi_files
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 import subprocess
 from typing import List
 
-from mido import Message, MidiFile, MidiTrack
+from mido import MidiFile, MidiTrack
 from pydub import AudioSegment
 
 from numpy_to_midi import NUM_TRACKS
@@ -44,8 +44,12 @@ def midi_to_mp3(midi_file: str, wav_file: str, mp3_file: str) -> str:
     )
 
     # Step 2: Convert WAV to MP3 using pydub
-    audio = AudioSegment.from_wav(wav_file)
-    audio.export(mp3_file, format="mp3")
+    sound = AudioSegment.from_wav(wav_file)
+
+    normalized_sound = sound.normalize(headroom=0.1)
+    normalized_sound.export("outputs/midis_to_wav_normalized.wav", format="wav")
+
+    normalized_sound.export(mp3_file, format="mp3")
 
     return mp3_file
 

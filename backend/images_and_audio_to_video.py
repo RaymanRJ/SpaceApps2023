@@ -47,6 +47,8 @@ def images_and_audio_to_video(
         audio_codec="aac",
     )
 
+    return output_video_name
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

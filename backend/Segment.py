@@ -1,5 +1,8 @@
+from typing import List
+
 import numpy as np
 import pandas as pd
+from cv2 import imread
 
 
 def segment_data(photo) -> np.ndarray:
@@ -66,3 +69,16 @@ def segment_data(photo) -> np.ndarray:
 def save_to_numpy(array):
     np.save("Video_colors", array, allow_pickle=True)
     np.load("Video_colors.npy")
+
+
+def segment_files(files: List[str]) -> List[np.ndarray]:
+    sequence = []
+    for file in files:
+        print(f"Processing {file}")
+        photo = imread(file)
+
+        segmented_data = segment_data(photo)
+        print(segmented_data.shape)
+
+        sequence.append(segmented_data)
+    return sequence
