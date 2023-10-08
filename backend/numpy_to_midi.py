@@ -92,6 +92,9 @@ def midi_generator(picture: np.ndarray, file_path: str) -> str:
 
     # Add a delay message to separate this set of notes from the next
     # track.append(Message('control_change', control=0, value=0, time=500))
+    # r_track.append(Message('program_change', program=42))
+    # g_track.append(Message('program_change', program=42))
+    # b_track.append(Message('program_change', program=42))
 
     mid.save(file_path)
     return file_path

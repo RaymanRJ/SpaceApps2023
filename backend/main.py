@@ -6,11 +6,9 @@ import numpy as np
 from images_and_audio_to_video import images_and_audio_to_video
 from midi_to_audio import midi_to_mp3, stitch_midis
 from numpy_to_midi import sequence_to_midis
-from Segment import segment_files
+from segment import segment_files
 
 photo_path = "assets"
-# photo_path = "./temp"
-# photo_path = "assets_cosmic2_dome"
 
 
 def process_photo(file_path: str) -> np.ndarray:

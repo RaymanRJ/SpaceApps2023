@@ -6,6 +6,8 @@ from pydub import AudioSegment
 
 from numpy_to_midi import NUM_TRACKS
 
+import fluidsynth
+
 
 def stitch_midis(midi_files: List[str], midi_file_path: str) -> str:
     stitched_midi = MidiFile(midi_files[0])
@@ -36,22 +38,36 @@ def stitch_midis(midi_files: List[str], midi_file_path: str) -> str:
 
 
 def midi_to_mp3(midi_file: str, wav_file: str, mp3_file: str) -> str:
-    soundfont = "PC-98_Soundfont.sf2"
-    # Step 1: Convert MIDI to WAV using FluidSynth
-    # Replace 'soundfont.sf2' with the path to your specific SoundFont file
-    subprocess.run(
-        ["fluidsynth", "-ni", soundfont, midi_file, "-F", wav_file, "-r", "44100"]
-    )
+    soundfont = "./soundfonts/SuperMarioWorld.sf2"
+    # Initialize FluidSynth and load a SoundFont
+    fs = fluidsynth.Synth()
+    fs.start(driver="alsa")
+    sfid = fs.sfload(soundfont)
+    fs.midi_to_audio(midi_file, wav_file)
 
-    # Step 2: Convert WAV to MP3 using pydub
-    sound = AudioSegment.from_wav(wav_file)
-
-    normalized_sound = sound.normalize(headroom=0.1)
-    normalized_sound.export("outputs/midis_to_wav_normalized.wav", format="wav")
-
-    normalized_sound.export(mp3_file, format="mp3")
-
+    audio = AudioSegment.from_wav(wav_file)
+    audio.export(mp3_file, format="mp3")
     return mp3_file
+    #
+    # # Step 1: Convert MIDI to WAV using FluidSynth
+    # # Replace 'soundfont.sf2' with the path to your specific SoundFont file
+    # process = subprocess.run(
+    #     ["fluidsynth", "-ni", soundfont, midi_file, "-F", wav_file, "-r", "44100", "-R", "no"],
+    #     stdout=subprocess.PIPE,
+    #     stderr=subprocess.PIPE,
+    #     text=True
+    # )
+    # print(process)
+    #
+    # # Step 2: Convert WAV to MP3 using pydub
+    # sound = AudioSegment.from_wav(wav_file)
+    #
+    # normalized_sound = sound.normalize(headroom=0.1)
+    # normalized_sound.export("outputs/midis_to_wav_normalized.wav", format="wav")
+    #
+    # normalized_sound.export(mp3_file, format="mp3")
+    #
+    # return mp3_file
 
 
 if __name__ == "__main__":
@@ -61,3 +77,5 @@ if __name__ == "__main__":
 
     midi = stitch_midis(midi_files, "stitch_test.mid")
     mp3 = midi_to_mp3(midi, "stitch_test.mp3")
+
+
