@@ -7,27 +7,30 @@ from backend.numpy_to_midi import NUM_TRACKS
 
 
 def stitch_midis(midi_files: List[str], midi_file_path: str) -> str:
-    """Stitch together a list of midi files into one midi file."""
-
     stitched_midi = MidiFile(midi_files[0])
-    tracks = {track.name for track in stitched_midi.tracks}
-    track_length = sum(msg.time for msg in stitched_midi.tracks[0])   # Expectation: Every track has the same length
+    track_dict = {track.name: track for track in stitched_midi.tracks}
+    track_length = sum(msg.time for msg in stitched_midi.tracks[0])
     track_offset = track_length
+
     for midi in midi_files[1:]:
         current_midi = MidiFile(midi)
-
         for track in current_midi.tracks:
-            new_track = MidiTrack()
-            new_track.name = track.name
+            if track.name in track_dict:
+                target_track = track_dict[track.name]
+            else:
+                target_track = MidiTrack()
+                target_track.name = track.name
+                stitched_midi.tracks.append(target_track)
+                track_dict[track.name] = target_track
+
             for msg in track:
-                if not msg.is_meta:
-                    msg.time += track_offset
-                new_track.append(msg)
-            stitched_midi.tracks.append(new_track)
+                # if not msg.is_meta:
+                #     msg.time += track_offset
+                target_track.append(msg)
 
         track_offset += track_length
-    stitched_midi.save(midi_file_path)
 
+    stitched_midi.save(midi_file_path)
     return midi_file_path
 
 
