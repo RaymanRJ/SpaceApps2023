@@ -12,6 +12,11 @@ const vids = [
     thumbnail: require("../assets/Videos/2.png"),
     name: "Cosmic Dome 2",
   },
+  {
+    url: "https://spaceapps2023.rrjamal.ca/videos/Celestial Lightsabers: Stellar Jets in HH 24.mp4",
+    thumbnail: require("../assets/Videos/3.png"),
+    name: "Celestial Lightsabers",
+  },
 ];
 
 const Son = () => {
