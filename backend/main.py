@@ -1,21 +1,18 @@
-from glob import glob
 import os
+from glob import glob
 from typing import List
-import cv2
 
+import cv2
 import numpy as np
-from Segment import segment_data
-from numpy_to_midi import midi_generator
-from midi_to_audio import stitch_midis, midi_to_mp3
+
 from images_and_audio_to_video import images_and_audio_to_video
+from midi_to_audio import midi_to_mp3, stitch_midis
+from numpy_to_midi import midi_generator
+from Segment import segment_data
 
 photo_path = "assets"
 # photo_path = "./STScI-01EVS1PYMMJ7HR4N6VFSCK6EXH"
 # photo_path = "./temp_150"
-
-
-def list_files(dir: str) -> List[str]:
-    return os.listdir(dir)
 
 
 def process_photo(file_path: str) -> np.ndarray:

@@ -21,7 +21,9 @@ def segment_data(photo) -> np.ndarray:
         if i == 0:
             rows.append(list(range(int((x_subs * i) - i), int(x_subs - (i + 1)) + 1)))
         else:
-            rows.append(list(range(int((x_subs * i) - i) + i, int((x_subs * (i + 1) - 1)) + 1)))
+            rows.append(
+                list(range(int((x_subs * i) - i) + i, int((x_subs * (i + 1) - 1)) + 1))
+            )
 
     # define index ranges for columns
     cols = []
@@ -30,15 +32,32 @@ def segment_data(photo) -> np.ndarray:
         if i == 0:
             cols.append(list(range(int((y_subs * i) - i), int(y_subs - (i + 1)) + 1)))
         else:
-            cols.append(list(range(int((y_subs * i) - i) + i, int((y_subs * (i + 1) - 1)) + 1)))
+            cols.append(
+                list(range(int((y_subs * i) - i) + i, int((y_subs * (i + 1) - 1)) + 1))
+            )
 
     all_avgs = []
     for x in range(len(rows)):
         for y in range(len(cols)):
             avgs = []
-            avgs.append(int((df1.iloc[rows[x], cols[y]].sum().sum()) / (len(rows[x]) * len(cols[y]))))
-            avgs.append(int((df2.iloc[rows[x], cols[y]].sum().sum()) / (len(rows[x]) * len(cols[y]))))
-            avgs.append(int((df3.iloc[rows[x], cols[y]].sum().sum()) / (len(rows[x]) * len(cols[y]))))
+            avgs.append(
+                int(
+                    (df1.iloc[rows[x], cols[y]].sum().sum())
+                    / (len(rows[x]) * len(cols[y]))
+                )
+            )
+            avgs.append(
+                int(
+                    (df2.iloc[rows[x], cols[y]].sum().sum())
+                    / (len(rows[x]) * len(cols[y]))
+                )
+            )
+            avgs.append(
+                int(
+                    (df3.iloc[rows[x], cols[y]].sum().sum())
+                    / (len(rows[x]) * len(cols[y]))
+                )
+            )
             all_avgs.append(avgs)
 
     return np.array(all_avgs)
