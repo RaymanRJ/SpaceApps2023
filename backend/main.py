@@ -1,28 +1,21 @@
 from glob import glob
 
-import cv2
-import numpy as np
-
 from images_and_audio_to_video import images_and_audio_to_video
 from midi_to_audio import midi_to_mp3, stitch_midis
 from numpy_to_midi import sequence_to_midis
-from segment import segment_files
+from segment import average_files
 
 photo_path = "assets"
-
-
-def process_photo(file_path: str) -> np.ndarray:
-    return cv2.imread(file_path)
 
 
 def main():
     files = sorted(glob(f"{photo_path}/*.png"))
     print(files)
 
-    sequence = segment_files(files)
-    print(f"Sequence length: {len(sequence)}")
+    averaged_photos = average_files(files)
+    print(f"Averaged photos length: {len(averaged_photos)}")
 
-    midi_files = sequence_to_midis(sequence)
+    midi_files = sequence_to_midis(averaged_photos)
     print(f"MIDI files length: {len(midi_files)}")
 
     midis = stitch_midis(midi_files, "outputs/stitch_midis.mid")

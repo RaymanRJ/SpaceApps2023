@@ -5,14 +5,16 @@ import pandas as pd
 from cv2 import imread
 
 
-def segment_data(photo) -> np.ndarray:
-    df1 = pd.DataFrame(photo[:, :, 0])
-    df2 = pd.DataFrame(photo[:, :, 1])
-    df3 = pd.DataFrame(photo[:, :, 2])
+def averaged_pixels(photo: np.array) -> np.ndarray:
+    """Takes a photo and returns an array of averaged pixels"""
+
+    df_r = pd.DataFrame(photo[:, :, 0])
+    df_g = pd.DataFrame(photo[:, :, 1])
+    df_b = pd.DataFrame(photo[:, :, 2])
 
     # Get image resolution in x and y direction
-    y = df1.shape[0]
-    x = df1.shape[1]
+    y = df_r.shape[0]
+    x = df_r.shape[1]
 
     # Change this array to change the segmentation of the images
     segs = [5, 5]
@@ -41,27 +43,29 @@ def segment_data(photo) -> np.ndarray:
 
     all_avgs = []
     for x in range(len(rows)):
+        row_avgs = []
         for y in range(len(cols)):
             avgs = []
             avgs.append(
                 int(
-                    (df1.iloc[rows[x], cols[y]].sum().sum())
+                    (df_r.iloc[rows[x], cols[y]].sum().sum())
                     / (len(rows[x]) * len(cols[y]))
                 )
             )
             avgs.append(
                 int(
-                    (df2.iloc[rows[x], cols[y]].sum().sum())
+                    (df_g.iloc[rows[x], cols[y]].sum().sum())
                     / (len(rows[x]) * len(cols[y]))
                 )
             )
             avgs.append(
                 int(
-                    (df3.iloc[rows[x], cols[y]].sum().sum())
+                    (df_b.iloc[rows[x], cols[y]].sum().sum())
                     / (len(rows[x]) * len(cols[y]))
                 )
             )
-            all_avgs.append(avgs)
+            row_avgs.append(avgs)
+        all_avgs.append(row_avgs)
 
     return np.array(all_avgs)
 
@@ -71,14 +75,33 @@ def save_to_numpy(array):
     np.load("Video_colors.npy")
 
 
-def segment_files(files: List[str]) -> List[np.ndarray]:
-    sequence = []
+def average_files(files: List[str]) -> List[np.ndarray]:
+    averaged_photos = []
     for i, file in enumerate(files):
         print(f"Processing {file}: {i} of {len(files)}")
         photo = imread(file)
 
-        segmented_data = segment_data(photo)
-        print(segmented_data.shape)
+        averaged_photo = averaged_pixels(photo)
 
-        sequence.append(segmented_data)
-    return sequence
+        averaged_photos.append(averaged_photo)
+    return averaged_photos
+
+
+if __name__ == "__main__":
+    test_image = np.random.randint(0, 10, (10, 10, 3), dtype=np.uint8)
+    # Print the test image array
+    print("Test Image:")
+    for i in range(test_image.shape[0]):
+        for j in range(test_image.shape[1]):
+            print(test_image[i, j], end=' ')
+        print()
+
+    # Call the segment_data function
+    segmented_data = average_files(test_image)
+
+    # Print the segmented data
+    print("Segmented Data:")
+    for i in range(segmented_data.shape[0]):
+        for j in range(segmented_data.shape[1]):
+            print(segmented_data[i, j], end=' ')
+        print()

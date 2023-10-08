@@ -15,6 +15,17 @@ picture_tests = [
 midi_path = "midi.mid"
 
 
+def pixel_to_midi(picture: np.ndarray) -> Tuple[int, int, int]:
+    r, g, b = picture
+
+    r_note = int(r * 127 / 255)  # Map 0-255 to 0-127
+    g_note = int(g * 127 / 255)  # Map 0-255 to 0-127
+    b_note = int(b * 127 / 255)  # Map 0-255 to 0-127
+
+    return r_note, g_note, b_note
+
+
+
 def rms_algorithm(picture: np.ndarray) -> Tuple[int, int, int]:
     rows, cols, colors = picture.shape
     r_note = 0
@@ -60,55 +71,50 @@ def average_algorithm(picture: np.ndarray) -> Tuple[int, int, int]:
     return r_note, g_note, b_note
 
 
-def midi_generator(picture: np.ndarray, file_path: str) -> str:
-    # Create a new MIDI file with one track
+def midi_generator(picture: List[np.ndarray], file_name: str, file_path: str) -> str:
+    tracks = []
     mid = MidiFile(type=1)
+    for i, row in enumerate(picture):
+        for j, pixel in enumerate(row):
 
-    r_track = MidiTrack()
-    g_track = MidiTrack()
-    b_track = MidiTrack()
+            track_name = f"{file_name}_{i}_{j}"
 
-    r_track.name = "Red"
-    g_track.name = "Green"
-    b_track.name = "Blue"
+            r_track = MidiTrack()
+            g_track = MidiTrack()
+            b_track = MidiTrack()
 
-    mid.tracks = [r_track, g_track, b_track]
+            r_track.name = f"Red_{track_name}"
+            g_track.name = f"Green_{track_name}"
+            b_track.name = f"Blue_{track_name}"
 
-    r_note, g_note, b_note = average_algorithm(picture)
+            r_note, g_note, b_note = pixel_to_midi(pixel)
 
-    # print(r_note, g_note, b_note)
+            # Add note-on messages
+            r_track.append(Message("note_on", note=r_note, velocity=64, time=0))
+            g_track.append(Message("note_on", note=g_note, velocity=64, time=0))
+            b_track.append(Message("note_on", note=b_note, velocity=64, time=0))
 
-    # r_note, g_note, b_note = rms_algorithm(picture)
+            # Add note-off messages immediately (time=0)
+            r_track.append(Message("note_off", note=r_note, velocity=64, time=int(1000 / 30)))
+            g_track.append(Message("note_off", note=g_note, velocity=64, time=int(1000 / 30)))
+            b_track.append(Message("note_off", note=b_note, velocity=64, time=int(1000 / 30)))
 
-    # Add note-on messages
-    r_track.append(Message("note_on", note=r_note, velocity=64, time=0))
-    g_track.append(Message("note_on", note=g_note, velocity=64, time=0))
-    b_track.append(Message("note_on", note=b_note, velocity=64, time=0))
+            mid.tracks.append(r_track)
+            mid.tracks.append(g_track)
+            mid.tracks.append(b_track)
 
-    # Add note-off messages immediately (time=0)
-    r_track.append(Message("note_off", note=r_note, velocity=64, time=int(1000 / 30)))
-    g_track.append(Message("note_off", note=g_note, velocity=64, time=int(1000 / 30)))
-    b_track.append(Message("note_off", note=b_note, velocity=64, time=int(1000 / 30)))
-
-    # Add a delay message to separate this set of notes from the next
-    # track.append(Message('control_change', control=0, value=0, time=500))
-    # r_track.append(Message('program_change', program=42))
-    # g_track.append(Message('program_change', program=42))
-    # b_track.append(Message('program_change', program=42))
-
-    mid.save(file_path)
+        mid.save(file_path)
     return file_path
 
 
-def sequence_to_midis(sequence: List[np.ndarray]) -> List[str]:
+def sequence_to_midis(averaged_photos: List[np.ndarray]) -> List[str]:
     midi_files = []
-    for frame in range(len(sequence)):
-        data = sequence[frame].reshape(5, 5, 3)
-        midi_file_path = f"midi/midi_{frame + 1}.mid"
-        midi_generator(data, midi_file_path)
-        midi_files.append(midi_file_path)
-    return midi_files
+    for i, averaged_photo in enumerate(averaged_photos):
+        midi_file = f"midi_{i}"
+        midi_file_path = f"midi/{midi_file}.mid"
+        midi_files.append(midi_generator(averaged_photo, midi_file, midi_file_path))
 
+    return midi_files
 
 if __name__ == "__main__":
     for i, pretend_picture in enumerate(picture_tests):
