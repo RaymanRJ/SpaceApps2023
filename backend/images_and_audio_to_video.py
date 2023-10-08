@@ -25,7 +25,7 @@ from glob import glob
 import moviepy.editor as mp
 
 
-def main(
+def images_and_audio_to_video(
     input_image_folder,
     output_video_name,
     input_audio_file,
@@ -46,6 +46,8 @@ def main(
         codec="libx264",
         audio_codec="aac",
     )
+
+    return output_video_name
 
 
 if __name__ == "__main__":
@@ -83,7 +85,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    main(
+    images_and_audio_to_video(
         args.input_image_folder,
         args.output_video_name,
         args.input_audio_file,

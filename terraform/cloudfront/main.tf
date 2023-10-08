@@ -16,6 +16,13 @@ resource "aws_cloudfront_distribution" "spaceapps2023_distribution" {
   enabled = true
   default_root_object      = "index.html"
   is_ipv6_enabled = true
+  
+  custom_error_response {
+    error_caching_min_ttl = 10 
+    error_code            = 403 
+    response_code         = 403
+    response_page_path    = "/index.html"
+  }
 
   default_cache_behavior {
     allowed_methods = ["GET", "HEAD", "OPTIONS"]

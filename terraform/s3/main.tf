@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "spaceapps2023_bucket" {
-  bucket = var.stack_name
+resource "aws_s3_bucket" "spaceapps2023_bucket_assets" {
+  bucket = "${var.stack_name}-assets"
   force_destroy = true
 }
 

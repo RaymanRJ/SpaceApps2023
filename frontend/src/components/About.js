@@ -102,7 +102,11 @@ const About = () => {
 
           <div className="mt-10">
             <div className="generic flex flex-col justify-center">
+<<<<<<< HEAD
               <h4 className="md:w-1/3 sm:w-full text-center mx-auto">
+=======
+              <h4 className="md:w-1/3 sm:w-full text-center">
+>>>>>>> main
                 Click on a member of the team to learn about them
               </h4>
             </div>

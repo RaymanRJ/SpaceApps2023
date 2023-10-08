@@ -8,9 +8,14 @@ const vids = [
     name: "Westerlund 2",
   },
   {
-    url: "https://spaceapps2023.rrjamal.ca/output_video_cosmic2_dome_1024x1024_30fps.mp4",
+    url: "https://spaceapps2023.rrjamal.ca/videos/Waveform-output_video_westerlund2_1920x1080_30fps.mp4",
     thumbnail: require("../assets/Videos/2.png"),
     name: "Cosmic Dome 2",
+  },
+  {
+    url: "https://spaceapps2023.rrjamal.ca/videos/Waveform-output_video_m51-flyby_1920x1080_30fps.mp4",
+    thumbnail: require("../assets/Videos/3.png"),
+    name: "Celestial Lightsabers",
   },
 ];
 
@@ -19,9 +24,9 @@ const Son = () => {
 
   useEffect(() => {
     if (plyr > -1) {
-      document.querySelector("video-play")?.classList.add("active");
+      document.querySelector(".video-play")?.classList.add("active");
     } else {
-      document.querySelector("video-play")?.classList.remove("active");
+      document.querySelector(".video-play")?.classList.remove("active");
     }
     console.log(plyr);
   }, [plyr]);

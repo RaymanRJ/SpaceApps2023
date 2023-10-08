@@ -1,5 +1,8 @@
+from typing import List
+
 import numpy as np
 import pandas as pd
+from cv2 import imread
 
 
 def segment_data(photo) -> np.ndarray:
@@ -21,7 +24,9 @@ def segment_data(photo) -> np.ndarray:
         if i == 0:
             rows.append(list(range(int((x_subs * i) - i), int(x_subs - (i + 1)) + 1)))
         else:
-            rows.append(list(range(int((x_subs * i) - i) + i, int((x_subs * (i + 1) - 1)) + 1)))
+            rows.append(
+                list(range(int((x_subs * i) - i) + i, int((x_subs * (i + 1) - 1)) + 1))
+            )
 
     # define index ranges for columns
     cols = []
@@ -30,15 +35,32 @@ def segment_data(photo) -> np.ndarray:
         if i == 0:
             cols.append(list(range(int((y_subs * i) - i), int(y_subs - (i + 1)) + 1)))
         else:
-            cols.append(list(range(int((y_subs * i) - i) + i, int((y_subs * (i + 1) - 1)) + 1)))
+            cols.append(
+                list(range(int((y_subs * i) - i) + i, int((y_subs * (i + 1) - 1)) + 1))
+            )
 
     all_avgs = []
     for x in range(len(rows)):
         for y in range(len(cols)):
             avgs = []
-            avgs.append(int((df1.iloc[rows[x], cols[y]].sum().sum()) / (len(rows[x]) * len(cols[y]))))
-            avgs.append(int((df2.iloc[rows[x], cols[y]].sum().sum()) / (len(rows[x]) * len(cols[y]))))
-            avgs.append(int((df3.iloc[rows[x], cols[y]].sum().sum()) / (len(rows[x]) * len(cols[y]))))
+            avgs.append(
+                int(
+                    (df1.iloc[rows[x], cols[y]].sum().sum())
+                    / (len(rows[x]) * len(cols[y]))
+                )
+            )
+            avgs.append(
+                int(
+                    (df2.iloc[rows[x], cols[y]].sum().sum())
+                    / (len(rows[x]) * len(cols[y]))
+                )
+            )
+            avgs.append(
+                int(
+                    (df3.iloc[rows[x], cols[y]].sum().sum())
+                    / (len(rows[x]) * len(cols[y]))
+                )
+            )
             all_avgs.append(avgs)
 
     return np.array(all_avgs)
@@ -46,5 +68,17 @@ def segment_data(photo) -> np.ndarray:
 
 def save_to_numpy(array):
     np.save("Video_colors", array, allow_pickle=True)
-    test = np.load("Video_colors.npy")
-    return
+    np.load("Video_colors.npy")
+
+
+def segment_files(files: List[str]) -> List[np.ndarray]:
+    sequence = []
+    for file in files:
+        print(f"Processing {file}")
+        photo = imread(file)
+
+        segmented_data = segment_data(photo)
+        print(segmented_data.shape)
+
+        sequence.append(segmented_data)
+    return sequence

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { useEffect, useState } from "react";
 import splash from "../assets/splash.webm";
 import splashBG from "../assets/spBG.mp4";
@@ -17,6 +18,12 @@ const Home = () => {
           <source src={splash} type="video/mp4" />
         </video>
       </div>
+=======
+const Home = () => {
+  return (
+    <div className="py-32">
+      <div className="mx-auto"></div>
+>>>>>>> main
     </div>
   );
 };
