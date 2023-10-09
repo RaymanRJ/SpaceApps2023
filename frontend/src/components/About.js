@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import DocumentMeta from "react-document-meta";
 
 const meta = {
   title: "About Us | StarScream",
@@ -67,6 +68,7 @@ const About = () => {
   };
 
   return (
+    <DocumentMeta {...meta}>
     <div className="main-padding py-28">
       <div className="md:mx-16 mx-1 bg-white/50 backdrop-blur-md rounded-xl md:px-32 sm:px-14 px-5">
         <div className="pb-28">
@@ -94,48 +96,72 @@ const About = () => {
           <div className="flex justify-around gap-8 flex-wrap">
             {info.map((member, i) => (
               <div
-                key={i}
-                className="group cursor-pointer member"
-                onClick={() => {
-                  setMember(i);
-                  scroll();
-                }}
+                to="/"
+                className="flex text-white items-baseline justify-center"
               >
-                <img
-                  src={member.pic}
-                  alt={member.name}
-                  className="rounded-xl w-64 h-72 object-cover group-hover:scale-110 duration-300"
-                />
-                <h4 className="w-64 text-center py-6">{member.name}</h4>
+                <h2 className="h-fit">star</h2>
+                <h1 className="italic text-proj_blue">SCREAM</h1>
               </div>
-            ))}
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
 
-          <div className="mt-10 desc-win">
-            <div className="generic flex flex-col justify-center">
-              <h4 className="md:w-1/3 sm:w-full text-center mx-auto">
-                Click on a member of the team to learn about them
-              </h4>
+          <div className="relative pb-[650px]">
+            <h2 className="pb-16 text-center text-proj_blue">Team Members</h2>
+            <div className="flex justify-around gap-8 flex-wrap">
+              {info.map((member, i) => (
+                <div
+                  key={i}
+                  className="group cursor-pointer member"
+                  onClick={() => {
+                    setMember(i);
+                    scroll();
+                  }}
+                >
+                  <img
+                    src={member.pic}
+                    alt={member.name}
+                    className="rounded-xl w-64 h-72 object-cover group-hover:scale-110 duration-300"
+                  />
+                  <h4 className="w-64 text-center py-6">{member.name}</h4>
+                </div>
+              ))}
             </div>
 
-            {info.map((info, i) => (
-              <div key={i} className="info">
-                <h2>{info.name}</h2>
-                <div>
-                  <h4 className="pb-3">Background:</h4>
-                  <p>{info.background}</p>
-                </div>
-                <div>
-                  <h4 className="pb-3">Project Role:</h4>
-                  <p>{` - ${info.role[0]} - `}</p>
-                  <p>{` - ${info.role[1]} - `}</p>
-                </div>
+            <div className="mt-10 desc-win">
+              <div className="generic flex flex-col justify-center">
+                <h4 className="md:w-1/3 sm:w-full text-center mx-auto">
+                  Click on a member of the team to learn about them
+                </h4>
               </div>
-            ))}
+
+              {info.map((info, i) => (
+                <div key={i} className="info">
+                  <h2>{info.name}</h2>
+                  <div>
+                    <h4 className="pb-3">Background:</h4>
+                    <p>{info.background}</p>
+                  </div>
+                  <div>
+                    <h4 className="pb-3">Project Role:</h4>
+                    <p>{` - ${info.role[0]} - `}</p>
+                    <p>{` - ${info.role[1]} - `}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </DocumentMeta>
   );
 };
 
