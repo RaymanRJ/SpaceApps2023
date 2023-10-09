@@ -56,9 +56,14 @@ const About = () => {
     });
   }, [member]);
 
+  const scroll = () => {
+    const desc = document.querySelector(".desc-win");
+    desc.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="main-padding py-28">
-      <div className="mx-16 bg-white/50 backdrop-blur-md rounded-xl md:px-32 sm:px-14 px-5">
+      <div className="md:mx-16 mx-1 bg-white/50 backdrop-blur-md rounded-xl md:px-32 sm:px-14 px-5">
         <div className="pb-28">
           <div className="py-20 mx-auto text-center">
             <h3>Team</h3>
@@ -81,14 +86,17 @@ const About = () => {
           </p>
         </div>
 
-        <div className="md:block hidden relative pb-[650px]">
+        <div className="relative pb-[650px]">
           <h2 className="pb-16 text-center text-proj_blue">Team Members</h2>
           <div className="flex justify-around gap-8 flex-wrap">
             {info.map((member, i) => (
               <div
                 key={i}
                 className="group cursor-pointer member"
-                onClick={() => setMember(i)}
+                onClick={() => {
+                  setMember(i);
+                  scroll();
+                }}
               >
                 <img
                   src={member.pic}
@@ -100,9 +108,9 @@ const About = () => {
             ))}
           </div>
 
-          <div className="mt-10">
+          <div className="mt-10 desc-win">
             <div className="generic flex flex-col justify-center">
-              <h4 className="md:w-1/3 sm:w-full text-center">
+              <h4 className="md:w-1/3 sm:w-full text-center mx-auto">
                 Click on a member of the team to learn about them
               </h4>
             </div>

@@ -1,26 +1,32 @@
 import "./App.css";
 
+import { useState } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Project from "./components/Project";
 import About from "./components/About";
-import Son from "./components/Son";
 import BKG from "./components/BKG";
+import SplashContext from "./context/SplashContext";
+import Splash from "./components/Splash";
 
 function App() {
+  const [splashScreen, setSplashScreen] = useState(true);
+
   return (
     <Router>
       <BKG />
       <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/project" element={<Project />} />
-          <Route path="/about-us" element={<About />} />
-          <Route path="/sonifications" element={<Son />} />
-        </Routes>
-      </main>
+      <SplashContext.Provider value={{ splashScreen, setSplashScreen }}>
+        <Splash />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/project" element={<Project />} />
+            <Route path="/about-us" element={<About />} />
+          </Routes>
+        </main>
+      </SplashContext.Provider>
     </Router>
   );
 }
