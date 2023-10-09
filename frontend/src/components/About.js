@@ -69,11 +69,32 @@ const About = () => {
 
   return (
     <DocumentMeta {...meta}>
-      <div className="main-padding py-28">
-        <div className="md:mx-16 mx-1 bg-white/50 backdrop-blur-md rounded-xl md:px-32 sm:px-14 px-5">
-          <div className="pb-28">
-            <div className="py-20 mx-auto text-center">
-              <h3>Team</h3>
+    <div className="main-padding py-28">
+      <div className="md:mx-16 mx-1 bg-white/50 backdrop-blur-md rounded-xl md:px-32 sm:px-14 px-5">
+        <div className="pb-28">
+          <div className="py-20 mx-auto text-center">
+            <h3>Team</h3>
+            <div
+              to="/"
+              className="flex text-white items-baseline justify-center"
+            >
+              <h2 className="h-fit">star</h2>
+              <h1 className="italic text-proj_blue">SCREAM</h1>
+            </div>
+          </div>
+          <p>
+            We are passionate developers with diverse backgrounds excited to take on this challenge. 
+            We created a method of sonifying 3D NASA fly-through photos. 
+            <br/>
+            From teaching English overseas to different engineering professions to software development, 
+            our experiences vary greatly but solving problems is what brings us together.
+          </p>
+        </div>
+
+        <div className="relative pb-[650px]">
+          <h2 className="pb-16 text-center text-proj_blue">Team Members</h2>
+          <div className="flex justify-around gap-8 flex-wrap">
+            {info.map((member, i) => (
               <div
                 to="/"
                 className="flex text-white items-baseline justify-center"
