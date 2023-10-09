@@ -1,5 +1,10 @@
 import React from "react";
 
+const meta = {
+  title: "Our Work | StarScream",
+  description: "Learn about our project",
+};
+
 const Project = () => {
   return (
     <div className="main-padding py-28">
