@@ -29,21 +29,19 @@ const Project = () => {
         <div>
           <h2 className="pt-20 pb-10 text-center">Our Approach</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-            <br /> <br />
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            In order to produce these videos, we have developed a Python-based system.
+          </p>
+          <br></br>
+          <p>
+              <h4>Methodology:</h4>
+              <ul className="pl-10">
+                <li>- Ingest a series of NASA Hubble Space Images</li>
+                <li>- Split each NASA fly-through photo into 5x5 grids</li>
+                <li>- Summarize each square of grid based on average colours of each pixel</li>
+                <li>- Convert squares into MIDI tracks</li>
+                <li>- Merge MIDI tracks together to produce audio track</li>
+                <li>- Stitch images together alongside audio to produce fly-through sonification</li>
+              </ul>
           </p>
         </div>
       </div>
