@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+  }
   body {
-    @apply bg-white text-black;
+    @apply bg-black text-black;
   }
   h1 {
     @apply lg:text-6xl md:text-5xl text-4xl font-bold
@@ -27,11 +32,24 @@
   .main-padding {
     @apply xl:px-40 md:px-28 sm:px-10 px-5 z-10 relative bg-transparent
   }
+  .nav {
+    @apply main-padding py-4 flex justify-between bg-black/70 backdrop-blur-md items-center opacity-0 duration-[4s] pointer-events-none
+  }
+  .nav.default {
+    @apply opacity-100 duration-0 pointer-events-auto
+  }
+  .nav.active {
+    @apply opacity-100 duration-[4s]
+  }
   .nav-link {
     @apply text-white hover:text-proj_L_blue duration-300
   }
   .background {
-    @apply absolute top-0 right-0 bottom-0 left-0 object-cover h-[2000px] -z-50 opacity-0 duration-[3s] delay-[3s];
+    @apply absolute top-0 right-0 bottom-0 left-0 object-cover opacity-0 duration-[3s] delay-[3s] h-fit w-full;
+  }
+  .grad {
+    @apply absolute top-0 right-0 bottom-0 left-0 z-40 h-full w-full;
+    background-image: linear-gradient(transparent, black);
   }
   .background.active {
     @apply opacity-100 delay-0
@@ -57,10 +75,16 @@
   .generic.inactive {
     @apply opacity-0 pointer-events-none
   }
-  .video-play {
-    @apply h-0 duration-300 overflow-hidden my-0
+  .splash {
+    @apply absolute h-full w-full top-0 left-0 opacity-100 duration-[3s] z-50 pointer-events-none
   }
-  .video-play.active {
-    @apply h-80 my-16
+  .splash.inactive {
+    @apply opacity-0
+  }
+  .son {
+    @apply opacity-0
+  }
+  .son.active {
+    @apply opacity-100
   }
 }
