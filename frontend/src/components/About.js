@@ -14,7 +14,7 @@ const info = [
   },
   {
     pic: require("../assets/Jon.jpg"),
-    name: "Jonanthan Ong",
+    name: "Jonathan Ong",
     Background: "Software Engineering and Industrial Engineering",
     role: ["Research & Development", "Project Coordination"],
   },
@@ -26,7 +26,7 @@ const info = [
   },
   {
     pic: require("../assets/Deep.png"),
-    name: "Jaydeep",
+    name: "Jaydeep Mistry",
     Background: "Data Engineering",
     role: ["Data Engineering", "Audio Engineering"],
   },
