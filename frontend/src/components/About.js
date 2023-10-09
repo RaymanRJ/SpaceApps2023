@@ -23,7 +23,7 @@ const info = [
     pic: require("../assets/Tochi.jpg"),
     name: "Tochi Oramasionwu",
     Background: "Mechanical Engineering and Software Engineering",
-    role: ["Full-Stack Development", "Musical Subject Matter Expert"],
+    role: ["Full-Stack Development", "Content Production"],
   },
   {
     pic: require("../assets/Deep.png"),
