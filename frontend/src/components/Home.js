@@ -22,7 +22,7 @@ const vids = [
 const Home = () => {
   const [plyr, setPlyr] = useState(0);
 
-  const { splashScreen, setSplashScreen } = useContext(SplashContext);
+  const { splashScreen } = useContext(SplashContext);
 
   useEffect(() => {
     if (!splashScreen) {
