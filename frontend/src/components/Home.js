@@ -13,9 +13,14 @@ const vids = [
     name: "Cosmic Dome 2",
   },
   {
-    url: "https://spaceapps2023.rrjamal.ca/videos/Waveform-output_video_m51-flyby_1920x1080_30fps.mp4",
+    url: "https://spaceapps2023.rrjamal.ca/videos/Celestial+Lightsabers%3A+Stellar+Jets+in+HH+24.mp4",
     thumbnail: require("../assets/Videos/3.png"),
     name: "Celestial Lightsabers",
+  },
+  {
+    url: "https://spaceapps2023.rrjamal.ca/videos/Waveform-output_video_m51-flyby_1920x1080_30fps.mp4",
+    thumbnail: require("../assets/Videos/4.png"),
+    name: "Whirlpool Galaxy",
   },
 ];
 
