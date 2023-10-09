@@ -1,6 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import SplashContext from "../context/SplashContext";
 
+const meta = {
+  title: "Home | StarScream",
+  description: "From starlight to soundwaves - Hear the sounds of space",
+};
+
 const vids = [
   {
     url: "https://spaceapps2023.rrjamal.ca/videos/Waveform-output_video_westerlund2_1920x1080_30fps.mp4",

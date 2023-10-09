@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 
+const meta = {
+  title: "About Us | StarScream",
+  description: "Meet Team StarScream",
+};
+
 const info = [
   {
     pic: require("../assets/Ray.png"),
